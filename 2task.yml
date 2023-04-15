@@ -1,0 +1,7 @@
+--- #Target and Tasks Playbook
+  - hosts: welcome
+    become: true
+
+    tasks:
+      - name: Install HTTPD on linux
+        action: yum name=httpd state=installed

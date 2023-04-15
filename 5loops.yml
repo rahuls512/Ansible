@@ -1,0 +1,13 @@
+--- #Playbook with loop
+  - hosts: welcome
+    become: true
+
+    tasks:
+      - name: Add a list of users on remote server
+        user: name="{{item}}" state=present
+
+        with_items:
+          - Tanmay
+          - Harshal
+          - Arvind
+          - kishor

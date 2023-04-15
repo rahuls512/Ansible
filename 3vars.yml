@@ -1,0 +1,10 @@
+--- #Target and Tasks Playbook
+  - hosts: welcome
+    become: true
+
+    vars:
+      pkgname: httpd
+
+    tasks:
+      - name: Install HTTPD on linux
+        action: yum name='{{pkgname}}' state=removed
