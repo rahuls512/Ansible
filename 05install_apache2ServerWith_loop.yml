@@ -1,0 +1,27 @@
+---
+- hosts: all
+  become: true
+  vars:
+    apache_config:
+      - name: "ServerName"
+        value: "example.com"
+      - name: "ServerAdmin"
+        value: "webmaster@example.com"
+  tasks:
+    - name: Install Apache2
+      apt:
+        name: apache2
+        state: present
+    - name: Configure Apache2
+      lineinfile:
+        path: /etc/apache2/apache2.conf
+        regexp: "^{{ item.name }} "
+        line: "{{ item.name }} {{ item.value }}"
+      loop: "{{ apache_config }}"
+      notify: Restart Apache2
+
+  handlers:
+    - name: Restart Apache2
+      service:
+        name: apache2
+        state: restarted
