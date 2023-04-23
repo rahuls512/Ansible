@@ -1,0 +1,11 @@
+---
+- hosts: all
+  become: true
+  tasks:
+   - name: Creating a file
+     file:
+      path: /home/file01
+      owner: root
+      mode: 0777
+      state: touch
+...

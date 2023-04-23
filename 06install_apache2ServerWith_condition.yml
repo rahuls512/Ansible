@@ -1,0 +1,17 @@
+---
+- hosts: all
+  become: true
+  tasks:
+    - name: Check if Apache2 is installed
+      stat:
+        path: /usr/sbin/apache2
+      register: apache2_installed
+    - name: Install Apache2
+      apt:
+        name: apache2
+        state: present
+      when: not apache2_installed.stat.exists
+    - name: Start Apache2
+      service:
+        name: apache2
+        state: started
